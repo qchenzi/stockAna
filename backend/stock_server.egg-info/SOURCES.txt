@@ -1,0 +1,6 @@
+README.md
+setup.py
+stock_server.egg-info/PKG-INFO
+stock_server.egg-info/SOURCES.txt
+stock_server.egg-info/dependency_links.txt
+stock_server.egg-info/top_level.txt

@@ -1,0 +1,26 @@
+.container {
+  padding: 30rpx;
+}
+
+.grid-container {
+  margin-top: 40rpx;
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+
+.grid-item {
+  padding: 40rpx 0 !important;
+}
+
+.van-grid-item__icon {
+  font-size: 56rpx !important;
+  color: #07c160;
+}
+
+.van-grid-item__text {
+  font-size: 32rpx !important;
+  margin-top: 16rpx !important;
+  color: #333;
+} 

@@ -1,0 +1,21 @@
+.card {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 32rpx;
+  margin: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  margin-top: 16rpx;
+  font-size: 28rpx;
+  color: #323233;
+}
+
+/* 添加点击效果 */
+.card:active {
+  background: #f2f3f5;
+} 

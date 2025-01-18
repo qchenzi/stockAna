@@ -1,0 +1,55 @@
+<view class="container">
+  <!-- 策略说明部分 -->
+  <view class="section">
+    <view class="strategy-desc">
+      <text class="strategy-text">{{strategy_desc}}</text>
+    </view>
+  </view>
+
+  <view class="section">
+    <view class="section-header" bindtap="toggleRules">
+      <text class="section-title">评分规则</text>
+      <text class="section-arrow {{showRules ? 'arrow-up' : ''}}">></text>
+    </view>
+    
+    <view class="rules-list {{showRules ? 'show' : ''}}">
+      <!-- 评分规则列表 -->
+      <view class="rules-section">
+        <view class="rule-item" wx:for="{{scoring_rules}}" wx:key="*this" wx:if="{{item !== '指标说明:' && item !== ''}}">
+          <text class="rule-index">{{item[0]}}</text>
+          <text class="rule-text">{{item}}</text>
+        </view>
+      </view>
+
+      <!-- 指标说明部分 -->
+      <view class="indicator-section" wx:if="{{scoring_rules.indexOf('指标说明:') > -1}}">
+        <view class="indicator-title">指标说明</view>
+        <view class="indicator-list">
+          <view class="indicator-item" wx:for="{{scoring_rules}}" wx:key="*this" wx:if="{{index > scoring_rules.indexOf('指标说明:')}}">
+            <text>{{item}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 推荐股票列表 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">推荐股票</text>
+      <text class="section-subtitle">按评分从高到低排序</text>
+    </view>
+    <view class="stock-list">
+      <van-cell
+        wx:for="{{stocks}}"
+        wx:key="code"
+        title="{{item.name}}({{item.code}})"
+        label="总分: {{item.score}} {{strategy === 'rtpv' ? '| 涨幅: ' + item.metrics['价格变动'] + '% | 量比: ' + item.metrics['成交量比'] : strategy === 'growth' ? '| 营收增速: ' + item.metrics.revenue_growth + '% | 利润增速: ' + item.metrics.earnings_growth + '%' : strategy === 'value' ? '| PE: ' + item.metrics.pe_ratio + ' | ROE: ' + item.metrics.roe + '%' : strategy === 'income' ? '| 股息率: ' + item.metrics.dividend_yield + '% | β: ' + item.metrics.beta : strategy === 'trend' ? '| RSI: ' + item.metrics.rsi + ' | 量比: ' + item.metrics.volume / item.metrics.avg_volume_10d : strategy === 'reverse' ? '| 反弹: ' + ((item.metrics.current_price - item.metrics.low_52week) / item.metrics.low_52week * 100) + '% | ROE: ' + item.metrics.roe + '%' : ''}}"
+        is-link
+        bindtap="onStockTap"
+        data-stock="{{item}}"
+        custom-class="stock-item"
+      />
+    </view>
+  </view>
+</view> 

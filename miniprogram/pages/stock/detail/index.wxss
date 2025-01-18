@@ -1,0 +1,74 @@
+.container {
+  padding: 20rpx;
+  background: #f7f8fa;
+}
+
+.header {
+  background: #fff;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  border-radius: 12rpx;
+}
+
+.company {
+  margin-bottom: 20rpx;
+}
+
+.name {
+  font-size: 36rpx;
+  font-weight: bold;
+}
+
+.code {
+  font-size: 28rpx;
+  color: #666;
+  margin-left: 20rpx;
+}
+
+.tags {
+  margin-top: 16rpx;
+}
+
+.tags .van-tag {
+  margin-right: 16rpx;
+}
+
+.price {
+  margin-top: 30rpx;
+}
+
+.current {
+  font-size: 48rpx;
+  font-weight: bold;
+}
+
+.change {
+  font-size: 32rpx;
+  margin-top: 8rpx;
+}
+
+.up {
+  color: #f5222d;
+}
+
+.down {
+  color: #52c41a;
+}
+
+van-cell-group {
+  margin-bottom: 20rpx;
+}
+
+.data-time {
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 12rpx;
+}
+
+.action-buttons {
+  margin-top: 20rpx;
+}
+
+.action-buttons .van-button {
+  width: 200rpx;  /* 设置按钮宽度 */
+} 

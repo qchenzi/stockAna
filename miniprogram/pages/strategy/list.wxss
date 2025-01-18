@@ -1,0 +1,46 @@
+.container {
+  padding: 30rpx;
+}
+
+.header {
+  margin-bottom: 40rpx;
+}
+
+.title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.strategy-list {
+  border-radius: 12rpx;
+  overflow: hidden;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.strategy-item {
+  padding: 24rpx !important;
+}
+
+.van-cell__title {
+  font-size: 32rpx !important;
+  font-weight: 500;
+}
+
+.van-cell__label {
+  margin-top: 8rpx;
+  color: #666 !important;
+  font-size: 26rpx !important;
+  line-height: 1.5 !important;
+}
+
+.van-cell__right-icon {
+  color: #07c160 !important;
+} 

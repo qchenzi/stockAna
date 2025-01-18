@@ -1,0 +1,25 @@
+<view class="container">
+  <view class="search-section">
+    <van-search
+      value="{{ stockCode }}"
+      placeholder="请输入股票代码或名称"
+      bind:change="onStockCodeInput"
+      shape="round"
+      background="#07c160"
+    />
+  </view>
+
+  <view class="suggestions-list" wx:if="{{suggestions.length > 0}}">
+    <van-cell-group>
+      <van-cell
+        wx:for="{{suggestions}}"
+        wx:key="code"
+        title="{{item.code}}"
+        label="{{item.name}}"
+        is-link
+        bind:click="onSelectStock"
+        data-stock="{{item}}"
+      />
+    </van-cell-group>
+  </view>
+</view> 

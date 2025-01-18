@@ -1,0 +1,21 @@
+<view class="container">
+  <view class="header">
+    <text class="title">选择策略</text>
+    <text class="subtitle">选择合适的策略开始选股</text>
+  </view>
+  
+  <view class="strategy-list">
+    <van-cell-group>
+      <van-cell
+        wx:for="{{strategies}}"
+        wx:key="key"
+        title="{{item.name}}"
+        label="{{item.desc}}"
+        is-link
+        bind:tap="onStrategyTap"
+        data-key="{{item.key}}"
+        custom-class="strategy-item"
+      />
+    </van-cell-group>
+  </view>
+</view> 

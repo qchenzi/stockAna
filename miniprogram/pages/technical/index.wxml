@@ -1,0 +1,89 @@
+<view class="container">
+  <!-- 输入区域 -->
+  <view class="input-section">
+    <van-cell-group>
+      <van-field
+        value="{{ stockCode }}"
+        label="股票代码"
+        placeholder="请输入股票代码"
+        bind:change="onStockCodeChange"
+        bind:input="onStockCodeInput"
+        use-right-icon-slot
+      >
+        <view slot="right-icon" class="stock-suggestions" wx:if="{{suggestions.length > 0}}">
+          <scroll-view 
+            scroll-y
+            class="suggestions-scroll"
+            style="height: 800rpx;"
+          >
+            <view 
+              class="suggestion-item" 
+              wx:for="{{suggestions}}" 
+              wx:key="code"
+              bind:tap="onSelectStock"
+              data-stock="{{item}}"
+            >
+              <text class="stock-code">{{item.code}}</text>
+              <text class="stock-name">{{item.name}}</text>
+            </view>
+          </scroll-view>
+        </view>
+      </van-field>
+      <van-field
+        value="{{ date }}"
+        label="查询日期"
+        placeholder="请选择日期"
+        readonly
+        bindtap="showDatePicker"
+      />
+      <van-button type="primary" block bind:click="queryTechnical">查询指标</van-button>
+    </van-cell-group>
+  </view>
+
+  <!-- 技术指标展示区域 -->
+  <view class="technical-section" wx:if="{{ hasData }}">
+    <!-- 均线数据 -->
+    <van-cell-group title="均线数据">
+      <van-cell title="MA5" value="{{ maData.ma5 }}" />
+      <van-cell title="MA10" value="{{ maData.ma10 }}" />
+      <van-cell title="MA20" value="{{ maData.ma20 }}" />
+      <van-cell title="MA60" value="{{ maData.ma60 }}" />
+      <van-cell title="MA200" value="{{ maData.ma200 }}" />
+    </van-cell-group>
+
+    <!-- 均线交叉信号 -->
+    <van-cell-group title="均线交叉信号">
+      <van-cell title="信号类型" value="{{ crossData.signal }}" />
+      <van-cell title="信号强度" value="{{ crossData.strength }}" />
+    </van-cell-group>
+
+    <!-- 三连阳形态 -->
+    <van-cell-group title="三连阳形态">
+      <van-cell title="是否形成" value="{{ threeBullish.formed ? '是' : '否' }}" />
+      <van-cell title="涨幅" value="{{ threeBullish.increase }}" />
+    </van-cell-group>
+
+    <!-- 吞没形态 -->
+    <van-cell-group title="吞没形态">
+      <van-cell title="形态类型" value="{{ engulfing.type }}" />
+      <van-cell title="可信度" value="{{ engulfing.reliability }}" />
+    </van-cell-group>
+
+    <!-- 支撑阻力位 -->
+    <van-cell-group title="支撑阻力位">
+      <van-cell title="支撑位" value="{{ support }}" />
+      <van-cell title="阻力位" value="{{ resistance }}" />
+      <van-cell title="价格位置" value="{{ pricePosition }}" />
+    </van-cell-group>
+  </view>
+</view>
+
+<!-- 日期选择器 -->
+<van-calendar
+  show="{{ showCalendar }}"
+  bind:close="onCloseCalendar"
+  bind:confirm="onSelectDate"
+  min-date="{{ minDate }}"
+  max-date="{{ maxDate }}"
+  color="#07c160"
+/> 

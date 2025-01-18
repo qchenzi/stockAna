@@ -1,0 +1,7 @@
+.container {
+  padding-bottom: 40rpx;
+}
+
+van-cell-group {
+  margin-bottom: 20rpx;
+} 

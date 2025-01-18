@@ -1,0 +1,58 @@
+<view class="container">
+  <!-- 基本信息 -->
+  <view class="header">
+    <view class="company">
+      <view class="name">{{basic.name || '-'}} <text class="code">{{basic.code || '-'}}</text></view>
+      <view class="tags">
+        <van-tag type="primary" size="medium">{{basic.industry || '-'}}</van-tag>
+        <van-tag plain type="primary" size="medium">{{basic.sector || '-'}}</van-tag>
+      </view>
+    </view>
+    <view class="price">
+      <view class="current">{{quote.close || '-'}}</view>
+      <view class="change {{quote.close >= quote.open ? 'up' : 'down'}}">
+        {{priceChange || '-'}} ({{priceChangePercent || '-'}}%)
+      </view>
+      <view class="data-time">数据时间: {{quoteDate || '-'}}</view>
+      <view class="action-buttons">
+        <van-button type="primary" size="small" bind:tap="onViewKLineClick">查看K线指标</van-button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 行情数据 -->
+  <van-cell-group title="行情数据">
+    <van-cell title="开盘价" value="{{quote.open || '-'}}" />
+    <van-cell title="收盘价" value="{{quote.close || '-'}}" />
+    <van-cell title="最高价" value="{{quote.high || '-'}}" />
+    <van-cell title="最低价" value="{{quote.low || '-'}}" />
+    <van-cell title="成交量" value="{{volumeDisplay || '-'}}" />
+    <van-cell title="成交额" value="{{amountDisplay || '-'}}" />
+  </van-cell-group>
+
+  <!-- 技术指标 -->
+  <van-cell-group title="技术指标">
+    <van-cell title="52周最高" value="{{technical.high52Week || '-'}}" />
+    <van-cell title="52周最低" value="{{technical.low52Week || '-'}}" />
+    <van-cell title="200日均线" value="{{technical.ma200 || '-'}}" />
+    <van-cell title="Beta系数" value="{{technical.beta || '-'}}" />
+  </van-cell-group>
+
+  <!-- 基本面 -->
+  <van-cell-group title="基本面指标">
+    <van-cell title="市盈率(PE)" value="{{fundamental.peRatio || '-'}}" />
+    <van-cell title="市净率(PB)" value="{{fundamental.pbRatio || '-'}}" />
+    <van-cell title="净资产收益率" value="{{roeDisplay || '-'}}" />
+    <van-cell title="营收增长率" value="{{revenueGrowthDisplay || '-'}}" />
+    <van-cell title="利润增长率" value="{{earningsGrowthDisplay || '-'}}" />
+    <van-cell title="股息率" value="{{dividendYieldDisplay || '-'}}" />
+  </van-cell-group>
+
+  <!-- 财务健康 -->
+  <van-cell-group title="财务健康">
+    <van-cell title="流动比率" value="{{financial.currentRatio || '-'}}" />
+    <van-cell title="速动比率" value="{{financial.quickRatio || '-'}}" />
+    <van-cell title="资产负债率" value="{{debtToEquityDisplay || '-'}}" />
+    <van-cell title="经营现金流(亿)" value="{{cashFlowDisplay || '-'}}" />
+  </van-cell-group>
+</view> 

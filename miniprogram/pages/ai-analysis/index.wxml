@@ -1,0 +1,144 @@
+<view class="container">
+  <view class="search-section">
+    <view class="search-row">
+      <van-search
+        value="{{ stockCode }}"
+        placeholder="请输入股票代码或名称"
+        bind:change="onStockCodeInput"
+        shape="round"
+        background="transparent"
+        custom-class="custom-search"
+      />
+      <van-field
+        value="{{ date }}"
+        placeholder="选择日期"
+        readonly
+        bindtap="onShowDatePicker"
+        custom-class="date-field"
+        right-icon="calendar-o"
+        label="分析日期"
+      />
+    </view>
+    <van-button type="primary" bind:tap="onAnalyze" custom-class="analyze-btn">开始AI分析</van-button>
+  </view>
+
+  <view class="suggestions-list" wx:if="{{suggestions.length > 0}}">
+    <van-cell-group custom-class="custom-cell-group">
+      <van-cell
+        wx:for="{{suggestions}}"
+        wx:key="code"
+        title="{{item.name}}"
+        label="{{item.code}}"
+        bind:click="onSelectStock"
+        data-stock="{{item}}"
+        custom-class="suggestion-cell"
+        is-link
+      />
+    </van-cell-group>
+  </view>
+
+  <view class="analysis-content" wx:if="{{analysis}}">
+    <view class="analysis-header">
+      <view class="header-info">
+        <text class="header-title">AI 智能分析报告</text>
+        <text class="header-date">分析日期：{{analysisDate}}</text>
+      </view>
+      <view class="stock-info">
+        <text class="stock-name">{{stockName}}</text>
+        <text class="stock-code">{{stockCode}}</text>
+      </view>
+    </view>
+
+    <view class="analysis-body">
+      <!-- 主要结论 -->
+      <view class="main-conclusion">
+        <view class="conclusion-item">
+          <text class="label">趋势判断</text>
+          <text class="value {{analysis.趋势判断 === '多头' ? 'bullish' : analysis.趋势判断 === '空头' ? 'bearish' : 'neutral'}}">
+            {{analysis.趋势判断}}
+          </text>
+        </view>
+        <view class="conclusion-item">
+          <text class="label">交易信号</text>
+          <text class="value signal-{{analysis.交易信号}}">{{analysis.交易信号}}</text>
+        </view>
+      </view>
+
+      <!-- 分析依据 -->
+      <view class="analysis-section">
+        <view class="section-title">分析依据</view>
+        <view class="section-content">
+          <template is="objectDisplay" data="{{obj: analysis.分析依据}}"/>
+        </view>
+      </view>
+
+      <!-- 风险评估 -->
+      <view class="analysis-section">
+        <view class="section-title">风险评估</view>
+        <view class="section-content">
+          <template is="objectDisplay" data="{{obj: analysis.风险评估}}"/>
+        </view>
+      </view>
+
+      <!-- 收益分析 -->
+      <view class="analysis-section">
+        <view class="section-title">收益分析</view>
+        <view class="section-content">
+          <template is="objectDisplay" data="{{obj: analysis.收益分析}}"/>
+        </view>
+      </view>
+
+      <!-- 执行建议 -->
+      <view class="analysis-section">
+        <view class="section-title">执行建议</view>
+        <view class="section-content">
+          <template is="objectDisplay" data="{{obj: analysis.执行建议}}"/>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{!analysis && !suggestions.length}}">
+    <image src="/images/analysis.png" mode="aspectFit" class="empty-image"></image>
+    <text class="empty-title">AI智能选股</text>
+    <text class="empty-text">输入股票代码，获取AI分析建议</text>
+  </view>
+
+  <van-popup
+    show="{{ showDatePicker }}"
+    position="bottom"
+    bind:close="onCloseDatePicker"
+    round
+    custom-style="max-height: 80%;"
+  >
+    <van-calendar 
+      show-title="{{ true }}"
+      type="single"
+      color="#07c160"
+      min-date="{{ minDate }}"
+      max-date="{{ maxDate }}"
+      default-date="{{ currentDate }}"
+      show-confirm="{{ true }}"
+      confirm-text="确认"
+      confirm-disabled-text="请选择工作日"
+      bind:close="onCloseDatePicker"
+      bind:confirm="onDateConfirm"
+      poppable="{{ false }}"
+    />
+  </van-popup>
+</view>
+
+<!-- 递归模板：用于显示嵌套对象 -->
+<template name="objectDisplay">
+  <block wx:for="{{obj}}" wx:key="*this">
+    <view class="analysis-item">
+      <text class="item-title">{{index}}</text>
+      <block wx:if="{{typeof item === 'object'}}">
+        <template is="objectDisplay" data="{{obj: item}}"/>
+      </block>
+      <block wx:else>
+        <text class="item-content">{{item}}</text>
+      </block>
+    </view>
+  </block>
+</template> 

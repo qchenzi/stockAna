@@ -1,0 +1,7 @@
+<van-cell
+  title="{{stock.name}}({{stock.code}})"
+  label="总分：{{stock.score}}"
+  value="{{stock.metrics}}"
+  is-link
+  bind:tap="onTap"
+/> 

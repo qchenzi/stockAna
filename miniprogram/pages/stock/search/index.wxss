@@ -1,0 +1,22 @@
+.container {
+  min-height: 100vh;
+  background: #f7f8fa;
+}
+
+.search-section {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.suggestions-list {
+  margin-top: 108rpx;
+  padding: 20rpx;
+}
+
+.van-cell-group {
+  border-radius: 8rpx;
+  overflow: hidden;
+} 

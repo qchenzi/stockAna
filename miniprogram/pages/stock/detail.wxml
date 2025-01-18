@@ -1,0 +1,30 @@
+<view class="container">
+  <block wx:if="{{stock}}">
+    <!-- 基本信息 -->
+    <van-cell-group title="基本信息">
+      <van-cell title="股票名称" value="{{stock.name}}" />
+      <van-cell title="股票代码" value="{{stock.code}}" />
+      <van-cell title="所属行业" value="{{stock.industry}}" />
+      <van-cell title="当前价格" value="{{stock.current_price}}" />
+    </van-cell-group>
+
+    <!-- 核心指标 -->
+    <van-cell-group title="核心指标">
+      <van-cell title="市盈率(PE)" value="{{stock.pe_ratio}}" />
+      <van-cell title="市净率(PB)" value="{{stock.pb_ratio}}" />
+      <van-cell title="ROE" value="{{stock.roe}}" />
+      <van-cell title="毛利率" value="{{stock.gross_margin}}" />
+    </van-cell-group>
+
+    <!-- 技术指标 -->
+    <van-cell-group title="技术指标">
+      <van-cell title="5日均线" value="{{stock.ma_5}}" />
+      <van-cell title="10日均线" value="{{stock.ma_10}}" />
+      <van-cell title="20日均线" value="{{stock.ma_20}}" />
+      <van-cell title="60日均线" value="{{stock.ma_60}}" />
+    </van-cell-group>
+  </block>
+
+  <!-- 加载中 -->
+  <van-loading wx:if="{{loading}}" />
+</view> 
