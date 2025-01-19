@@ -220,3 +220,28 @@ def search_stocks():
     except Exception as e:
         logger.error(f"搜索股票失败: {str(e)}")
         return jsonify({'error': str(e)}), 500 
+
+@details_bp.route('/<stock_code>/latest-trade-date', methods=['GET'])
+def get_latest_trade_date(stock_code):
+    """获取股票最新交易日期"""
+    try:
+        with engine.connect() as conn:
+            sql = """
+            SELECT trade_date
+            FROM stock_historical_quotes
+            WHERE stock_code = :code
+            ORDER BY trade_date DESC
+            LIMIT 1
+            """
+            result = conn.execute(text(sql), {'code': stock_code}).fetchone()
+            
+            if not result:
+                return jsonify({'error': '未找到交易数据'}), 404
+                
+            return jsonify({
+                'date': result.trade_date.strftime('%Y-%m-%d')
+            })
+            
+    except Exception as e:
+        logger.error(f"获取最新交易日期失败: {str(e)}")
+        return jsonify({'error': str(e)}), 500

@@ -47,5 +47,5 @@ Page({
     wx.navigateTo({
       url: '/pages/ai-analysis/index'
     });
-  }
+  },
 }); 

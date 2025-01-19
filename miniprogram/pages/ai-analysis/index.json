@@ -1,11 +1,11 @@
 {
-  "navigationBarTitleText": "AI分析",
+  "navigationBarTitleText": "AI智能分析",
   "usingComponents": {
     "van-search": "@vant/weapp/search/index",
+    "van-field": "@vant/weapp/field/index",
     "van-button": "@vant/weapp/button/index",
     "van-cell": "@vant/weapp/cell/index",
     "van-cell-group": "@vant/weapp/cell-group/index",
-    "van-field": "@vant/weapp/field/index",
     "van-popup": "@vant/weapp/popup/index",
     "van-calendar": "@vant/weapp/calendar/index"
   }
