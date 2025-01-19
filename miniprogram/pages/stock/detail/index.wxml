@@ -16,6 +16,7 @@
       <view class="data-time">数据时间: {{quoteDate || '-'}}</view>
       <view class="action-buttons">
         <van-button type="primary" size="small" bind:tap="onViewKLineClick">查看K线指标</van-button>
+        <van-button type="info" size="small" bind:tap="onViewAIAnalysisClick">AI智能分析</van-button>
       </view>
     </view>
   </view>

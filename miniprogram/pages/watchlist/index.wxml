@@ -1,0 +1,68 @@
+<view class="page">
+  <!-- 搜索框 -->
+  <view class="search-box">
+    <van-search
+      value="{{ keyword }}"
+      placeholder="输入股票代码或名称搜索"
+      bind:change="onSearchChange"
+      shape="round"
+      background="transparent"
+    />
+  </view>
+
+  <!-- 搜索结果列表 -->
+  <van-cell-group wx:if="{{ suggestions.length > 0 }}" custom-class="suggestions">
+    <van-cell
+      wx:for="{{ suggestions }}"
+      wx:key="code"
+      title="{{ item.name }}"
+      label="{{ item.code }}"
+      center
+      use-label-slot
+      bind:click="onStockClick"
+      data-stock="{{ item }}"
+    >
+      <view slot="label" class="stock-label">
+        <text>{{ item.code }}</text>
+        <van-button 
+          size="small" 
+          type="primary" 
+          catch:tap="onAddStock"
+          data-stock="{{ item }}"
+          custom-class="add-btn"
+        >加入自选</van-button>
+      </view>
+    </van-cell>
+  </van-cell-group>
+
+  <!-- 自选股列表 -->
+  <view class="watchlist" wx:if="{{ watchlist.length > 0 }}">
+    <van-cell-group title="自选股列表">
+      <van-swipe-cell
+        wx:for="{{ watchlist }}"
+        wx:key="code"
+        right-width="{{ 65 }}"
+      >
+        <van-cell
+          title="{{ item.name }}"
+          label="{{ item.code }}"
+          value="{{ item.price }}"
+          value-class="{{ item.changeClass }}"
+          center
+          bind:click="onStockClick"
+          data-stock="{{ item }}"
+        />
+        <view slot="right" class="delete-btn" bindtap="onDeleteStock" data-index="{{ index }}">
+          删除
+        </view>
+      </van-swipe-cell>
+    </van-cell-group>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty" wx:if="{{ !watchlist.length && !suggestions.length }}">
+    <image src="/images/empty-watchlist.png" mode="aspectFit" class="empty-image"/>
+    <text class="empty-title">暂无自选股</text>
+    <text class="empty-desc">搜索并添加你感兴趣的股票</text>
+  </view>
+</view> 

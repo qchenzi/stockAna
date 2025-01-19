@@ -23,7 +23,7 @@ def get_moving_averages(stock_code):
         date = request.args.get('date', type=str)
         if not date:
             return jsonify({'error': '日期不能为空'}), 400
-            
+
         sql = """
         WITH ma_calculation AS (
             SELECT stock_code,

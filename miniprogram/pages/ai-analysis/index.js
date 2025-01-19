@@ -9,6 +9,17 @@ Page({
     loading: false
   },
 
+  onLoad(options) {
+    // 处理从其他页面传入的参数
+    if (options.code) {
+      this.setData({ 
+        stockCode: options.code 
+      });
+      // 自动开始分析
+      this.onAnalyze();
+    }
+  },
+
   onStockCodeInput(event) {
     const code = event.detail;
     this.setData({ 
@@ -51,46 +62,73 @@ Page({
   parseAnalysis(analysisStr) {
     try {
       // 尝试解析 JSON 字符串
-      const analysisObj = JSON.parse(analysisStr);
-      const result = [];
+      let analysisObj;
+      try {
+        analysisObj = JSON.parse(analysisStr);
+      } catch (e) {
+        // 如果解析失败，可能是字符串中的引号格式问题，尝试替换引号
+        const cleanStr = analysisStr
+          .replace(/[\u201c\u201d]/g, '"')  // 替换中文引号
+          .replace(/```json\n?|\n?```/g, '') // 移除可能的 markdown 标记
+          .replace(/\\/g, '')                // 移除转义字符
+          .trim();
+        analysisObj = JSON.parse(cleanStr);
+      }
 
-      // 遍历对象的每个顶级属性
+      const result = [];
+      
+      // 递归处理对象
+      const processValue = (value, depth = 0) => {
+        if (typeof value === 'object' && value !== null) {
+          return Object.entries(value)
+            .map(([k, v]) => {
+              const indent = '  '.repeat(depth);
+              if (typeof v === 'object' && v !== null) {
+                return `${indent}${k}:\n${processValue(v, depth + 1)}`;
+              }
+              return `${indent}${k}: ${v}`;
+            })
+            .join('\n');
+        }
+        return String(value);
+      };
+
+      // 处理顶层属性
       for (const key in analysisObj) {
         const value = analysisObj[key];
         
-        if (typeof value === 'object') {
-          // 如果值是对象，递归处理
-          const details = Object.entries(value)
-            .map(([subKey, subValue]) => {
-              if (typeof subValue === 'object') {
-                return `${subKey}:\n${Object.entries(subValue)
-                  .map(([k, v]) => `  ${k}: ${v}`).join('\n')}`;
-              }
-              return `${subKey}: ${subValue}`;
-            })
-            .join('\n\n');
-          
-          result.push({
-            title: key,
-            content: details,
-            isDetails: true
-          });
-        } else {
-          // 如果值是简单类型
-          result.push({
-            title: key,
-            content: value,
-            isDetails: false
-          });
-        }
+        // 判断是否是详细信息
+        const isDetails = typeof value === 'object' || 
+                         String(value).length > 50 ||
+                         key.match(/分析|详情|依据|评估|建议/);
+        
+        // 格式化内容
+        const content = typeof value === 'object' ? 
+          processValue(value) : 
+          String(value);
+
+        // 格式化标题
+        const title = key.replace(/[""]/g, '')  // 移除引号
+                        .replace(/[{}\[\]]/g, '') // 移除括号
+                        .trim();
+
+        result.push({
+          title,
+          content,
+          isDetails
+        });
       }
       
       return result;
     } catch (e) {
       console.error('解析分析结果失败:', e);
+      // 如果解析失败，直接显示原始内容
       return [{
         title: '分析结果',
-        content: analysisStr,
+        content: analysisStr
+          .replace(/```json\n?|\n?```/g, '')
+          .replace(/[\u201c\u201d]/g, '"')
+          .trim(),
         isDetails: true
       }];
     }

@@ -1,14 +1,9 @@
 <view class="container">
   <van-grid column-num="3" border="{{ false }}">
     <van-grid-item 
-      icon="search" 
-      text="策略选股" 
-      bind:click="onStrategyClick"
-    />
-    <van-grid-item 
-      icon="chart-trending-o" 
-      text="K线指标" 
-      bind:click="onTechnicalClick"
+      icon="star-o" 
+      text="自选股" 
+      bind:click="onWatchlistClick"
     />
     <van-grid-item 
       icon="info-o" 
@@ -16,7 +11,17 @@
       bind:click="onStockInfoClick"
     />
     <van-grid-item 
-      icon="cluster-o" 
+      icon="chart-trending-o" 
+      text="K线指标" 
+      bind:click="onTechnicalClick"
+    />
+    <van-grid-item 
+      icon="search" 
+      text="策略选股" 
+      bind:click="onStrategyClick"
+    />
+    <van-grid-item 
+      icon="chat-o"
       text="AI分析" 
       bind:click="onAIAnalysisClick"
     />

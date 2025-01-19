@@ -66,7 +66,9 @@ van-cell-group {
 }
 
 .action-buttons {
-  margin-top: 20rpx;
+  display: flex;
+  gap: 16rpx;
+  margin-top: 16rpx;
 }
 
 .action-buttons .van-button {

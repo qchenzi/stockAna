@@ -177,8 +177,8 @@ WITH continuous_trading_days AS (
                 AND b.trade_date >= DATE_SUB(a.trade_date, INTERVAL 7 DAY)
         ) as prev_date2
     FROM stock_historical_quotes a
-    WHERE a.stock_code = '600519'
-        AND a.trade_date = '2024-09-30'
+    WHERE a.stock_code = '000725'
+        AND a.trade_date = '2025-01-17'
     GROUP BY a.stock_code, a.trade_date
 ),
 three_days_data AS (
@@ -280,7 +280,7 @@ SELECT
         ELSE '非三连阳'
     END as pattern_strength
 FROM three_bullish_analysis
-WHERE trade_date = '2024-09-30'
+WHERE trade_date = '2025-01-17'
 ORDER BY reliability_score DESC;
 
 

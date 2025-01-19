@@ -48,4 +48,10 @@ Page({
       url: '/pages/ai-analysis/index'
     });
   },
+
+  onWatchlistClick() {
+    wx.navigateTo({
+      url: '/pages/watchlist/index'
+    });
+  },
 }); 
