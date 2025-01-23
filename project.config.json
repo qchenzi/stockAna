@@ -70,5 +70,6 @@
   "packOptions": {
     "ignore": [],
     "include": []
-  }
+  },
+  "lazyCodeLoading": "requiredComponents"
 }

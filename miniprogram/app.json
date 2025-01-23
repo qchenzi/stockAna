@@ -7,7 +7,8 @@
     "pages/technical/index",
     "pages/stock/search/index",
     "pages/ai-analysis/index",
-    "pages/watchlist/index"
+    "pages/watchlist/index",
+    "pages/recommendations/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

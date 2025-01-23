@@ -6,7 +6,7 @@ App({
     
     this.globalData = {
       userInfo: null,
-      baseUrl: 'http://175.178.191.239:80'
+      baseUrl: 'http://tech-chen.site'
     };
   }
 });

@@ -54,4 +54,10 @@ Page({
       url: '/pages/watchlist/index'
     });
   },
+
+  onRecommendationsClick() {
+    wx.navigateTo({
+      url: '/pages/recommendations/index'
+    });
+  }
 }); 

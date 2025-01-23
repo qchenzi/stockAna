@@ -1,0 +1,51 @@
+<view class="page">
+  <!-- 日期显示 -->
+  <van-cell title="推荐日期" value="{{ date }}" border="{{ false }}" />
+
+  <!-- 推荐列表 -->
+  <block wx:if="{{ recommendations.length > 0 }}">
+    <van-cell-group title="推荐股票">
+      <van-cell
+        wx:for="{{ recommendations }}"
+        wx:key="stock_code"
+        is-link
+        bind:click="onStockClick"
+        data-stock="{{ item }}"
+      >
+        <view class="stock-card">
+          <!-- 第一行：股票名称和分数 -->
+          <view class="stock-header">
+            <view class="stock-name">{{ item.stock_name }}</view>
+            <van-tag type="primary" custom-class="score-tag">{{ item.total_score }}分</van-tag>
+          </view>
+          
+          <!-- 第二行：代码和行业 -->
+          <view class="stock-subinfo">
+            <text>{{ item.stock_code }}</text>
+            <text class="divider">|</text>
+            <text>{{ item.industry }}</text>
+          </view>
+          
+          <!-- 第三行：当前价格 -->
+          <view class="stock-price">
+            <text>¥{{ item.current_price }}</text>
+          </view>
+          
+          <!-- 第四行：推荐理由 -->
+          <view class="stock-reason">{{ item.reasons }}</view>
+          
+          <!-- 第五行：推荐等级 -->
+          <view class="stock-level">
+            <van-tag type="success" size="medium">{{ item.recommendation_level }}</van-tag>
+          </view>
+        </view>
+      </van-cell>
+    </van-cell-group>
+  </block>
+
+  <!-- 空状态 -->
+  <van-empty 
+    wx:else 
+    description="暂无推荐股票" 
+  />
+</view> 

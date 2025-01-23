@@ -6,6 +6,11 @@
       bind:click="onWatchlistClick"
     />
     <van-grid-item 
+      icon="fire-o"
+      text="每日推荐" 
+      bind:click="onRecommendationsClick"
+    />
+    <van-grid-item 
       icon="info-o" 
       text="个股详情" 
       bind:click="onStockInfoClick"

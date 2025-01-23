@@ -1,0 +1,55 @@
+.page {
+  min-height: 100vh;
+  background: #f7f8fa;
+  padding: 32rpx 0;
+}
+
+.stock-card {
+  padding: 16rpx 0;
+}
+
+.stock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.stock-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.score-tag {
+  font-weight: bold !important;
+}
+
+.stock-subinfo {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+}
+
+.divider {
+  margin: 0 12rpx;
+  color: #ddd;
+}
+
+.stock-price {
+  font-size: 36rpx;
+  color: #333;
+  font-weight: bold;
+  margin: 12rpx 0;
+}
+
+.stock-reason {
+  font-size: 24rpx;
+  color: #666;
+  margin: 12rpx 0;
+  line-height: 1.4;
+}
+
+.stock-level {
+  margin-top: 12rpx;
+} 

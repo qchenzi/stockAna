@@ -21,30 +21,31 @@ CREATE TABLE stocks (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- 2. 股票历史交易数据表
-CREATE TABLE stock_historical_quotes (
-    stock_code VARCHAR(6) NOT NULL COMMENT '股票代码',
-    trade_date DATE NOT NULL COMMENT '交易日期',
-    open_price DECIMAL(10, 2) NOT NULL COMMENT '开盘价',
-    close_price DECIMAL(10, 2) NOT NULL COMMENT '收盘价',
-    high_price DECIMAL(10, 2) NOT NULL COMMENT '最高价',
-    low_price DECIMAL(10, 2) NOT NULL COMMENT '最低价',
-    volume BIGINT NOT NULL COMMENT '成交量',
-    amount DECIMAL(20, 2) NOT NULL DEFAULT 0 COMMENT '成交额',
-    dividends DECIMAL(10, 4) DEFAULT 0 COMMENT '分红',
-    stock_splits DECIMAL(10, 4) DEFAULT 1 COMMENT '拆股比例',
-    
-    -- 添加审计字段
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    
-    -- 主键和索引
-    PRIMARY KEY (stock_code, trade_date),
-    INDEX idx_trade_date (trade_date),
-    INDEX idx_stock_code (stock_code),
-    
-    -- 外键约束
-    FOREIGN KEY (stock_code) REFERENCES stocks(stock_code)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='股票历史交易数据';
+CREATE TABLE `stock_historical_quotes` (
+  `stock_code` varchar(6) NOT NULL COMMENT '股票代码',
+  `trade_date` date NOT NULL COMMENT '交易日期',
+  `open_price` decimal(10,2) NOT NULL COMMENT '开盘价',
+  `close_price` decimal(10,2) NOT NULL COMMENT '收盘价',
+  `high_price` decimal(10,2) NOT NULL COMMENT '最高价',
+  `low_price` decimal(10,2) NOT NULL COMMENT '最低价',
+  `volume` bigint NOT NULL COMMENT '成交量',
+  `amount` decimal(20,2) NOT NULL DEFAULT '0.00' COMMENT '成交额',
+  `dividends` decimal(10,4) DEFAULT '0.0000' COMMENT '分红',
+  `stock_splits` decimal(10,4) DEFAULT '1.0000' COMMENT '拆股比例',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `amplitude` decimal(10,2) DEFAULT NULL COMMENT '振幅(%)',
+  `change_ratio` decimal(10,2) DEFAULT NULL COMMENT '涨跌幅(%)',
+  `change_amount` decimal(10,2) DEFAULT NULL COMMENT '涨跌额',
+  `turnover_ratio` decimal(10,2) DEFAULT NULL COMMENT '换手率(%)',
+  `source` varchar(10) DEFAULT NULL COMMENT '数据来源(yfinance/akshare)',
+  `adjust_type` varchar(10) DEFAULT NULL COMMENT '复权类型(qfq/hfq/none)',
+  PRIMARY KEY (`stock_code`,`trade_date`),
+  KEY `idx_stock_code` (`stock_code`),
+  KEY `idx_stock_change` (`stock_code`,`change_ratio`),
+  CONSTRAINT `stock_historical_quotes_ibfk_1` FOREIGN KEY (`stock_code`) REFERENCES `stocks` (`stock_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='股票历史交易数据'
+
 
 -- 3. 基本面指标表
 CREATE TABLE fundamental_metrics (
@@ -157,3 +158,22 @@ CREATE INDEX idx_financial_report_date ON financial_health(report_date);
 CREATE INDEX idx_industry_date ON industry_metrics(date);
 CREATE INDEX idx_investor_date ON investor_metrics(date);
 CREATE INDEX idx_update_logs_table ON update_logs(table_name); 
+
+
+-- 10. 股票推荐表
+CREATE TABLE stock_recommendations (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    recommend_date DATE NOT NULL COMMENT '推荐日期',
+    stock_code VARCHAR(6) NOT NULL COMMENT '股票代码',
+    stock_name VARCHAR(50) NOT NULL COMMENT '股票名称',
+    industry VARCHAR(100) COMMENT '所属行业',
+    current_price DECIMAL(10,2) COMMENT '当前价格',
+    total_score INT COMMENT '综合评分',
+    recommendation_level VARCHAR(20) COMMENT '推荐等级',
+    reasons TEXT COMMENT '推荐理由',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    INDEX idx_date (recommend_date),
+    INDEX idx_score (total_score),
+    INDEX idx_stock (stock_code),
+    CONSTRAINT UNIQUE KEY uk_date_stock (recommend_date, stock_code)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='股票推荐记录表';
