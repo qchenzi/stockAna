@@ -6,7 +6,7 @@ App({
     
     this.globalData = {
       userInfo: null,
-      baseUrl: 'http://tech-chen.site'
+      baseUrl: 'https://tech-chen.site'
     };
   }
 });

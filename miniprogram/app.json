@@ -31,6 +31,5 @@
     "van-popup": "@vant/weapp/popup/index"
   },
   "sitemapLocation": "sitemap.json",
-  "libVersion": "2.30.4",
-  "lazyCodeLoading": "requiredComponents"
+  "libVersion": "2.30.4"
 }
