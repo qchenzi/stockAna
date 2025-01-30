@@ -14,15 +14,33 @@
         {{priceChange || '-'}} ({{priceChangePercent || '-'}}%)
       </view>
       <view class="data-time">数据时间: {{quoteDate || '-'}}</view>
-      <view class="action-buttons">
-        <van-button type="primary" size="small" bind:tap="onViewKLineClick">查看K线指标</van-button>
-        <van-button type="info" size="small" bind:tap="onViewAIAnalysisClick">AI智能分析</van-button>
-      </view>
     </view>
   </view>
 
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <van-button type="primary" size="small" bind:tap="onViewKLineClick">查看K线指标</van-button>
+    <van-button type="info" size="small" bind:tap="onViewAIAnalysisClick">AI智能分析</van-button>
+  </view>
+
+  <!-- 近5日行情 -->
+  <van-cell-group title="近5日行情">
+    <view class="history-table">
+      <view class="table-header">
+        <view class="th">日期</view>
+        <view class="th">收盘价</view>
+        <view class="th">成交量(万)</view>
+      </view>
+      <view class="table-row" wx:for="{{klineData}}" wx:key="date">
+        <view class="td">{{item.date}}</view>
+        <view class="td">{{item.close}}</view>
+        <view class="td">{{item.volumeDisplay}}</view>
+      </view>
+    </view>
+  </van-cell-group>
+
   <!-- 行情数据 -->
-  <van-cell-group title="行情数据">
+  <van-cell-group title="最新交易日行情数据">
     <van-cell title="开盘价" value="{{quote.open || '-'}}" />
     <van-cell title="收盘价" value="{{quote.close || '-'}}" />
     <van-cell title="最高价" value="{{quote.high || '-'}}" />

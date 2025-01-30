@@ -9,6 +9,7 @@ import math
 from technical_api import technical_bp
 from stock_details_api import details_bp
 from stock_ai_analysis_api import ai_analysis_bp
+from stock_history_api import history_bp
 
 # 配置日志
 logging.basicConfig(level=logging.INFO)
@@ -21,6 +22,7 @@ app.config['JSON_AS_ASCII'] = False
 app.register_blueprint(technical_bp, url_prefix='/api/technical')
 app.register_blueprint(details_bp, url_prefix='/api/stocks')  # 注册股票详情蓝图
 app.register_blueprint(ai_analysis_bp, url_prefix='/api/ai')
+app.register_blueprint(history_bp, url_prefix='/api')
 
 # 创建数据库连接
 engine = create_engine(

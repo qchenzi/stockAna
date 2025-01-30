@@ -19,12 +19,14 @@ Page({
     dividendYieldDisplay: '-',
     debtToEquityDisplay: '-',
     cashFlowDisplay: '-',
-    quoteDate: '-'
+    quoteDate: '-',
+    klineData: []
   },
 
   onLoad(options) {
     const { code } = options;
     this.loadStockDetails(code);
+    this.loadHistoryData(code);
   },
 
   async loadStockDetails(code) {
@@ -103,6 +105,49 @@ Page({
       console.error('请求失败:', error);
       wx.showToast({
         title: '网络请求失败',
+        icon: 'none'
+      });
+    } finally {
+      wx.hideLoading();
+    }
+  },
+
+  async loadHistoryData(code) {
+    try {
+      wx.showLoading({
+        title: '加载历史数据...'
+      });
+
+      const res = await new Promise((resolve, reject) => {
+        wx.request({
+          url: `${getApp().globalData.baseUrl}/api/stocks/${code}/history`,
+          method: 'GET',
+          data: {
+            days: 5
+          },
+          success: (res) => resolve(res),
+          fail: (err) => reject(err)
+        });
+      });
+
+      console.log('历史数据响应:', res);
+
+      if (res.statusCode === 200 && res.data) {
+        const klineData = res.data.map(item => ({
+          ...item,
+          volumeDisplay: (item.volume / 10000).toFixed(2)
+        }));
+        this.setData({ klineData });
+      } else {
+        wx.showToast({
+          title: '获取历史数据失败',
+          icon: 'none'
+        });
+      }
+    } catch (error) {
+      console.error('加载历史数据失败:', error);
+      wx.showToast({
+        title: '加载历史数据失败',
         icon: 'none'
       });
     } finally {
