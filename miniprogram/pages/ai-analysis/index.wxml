@@ -23,6 +23,7 @@
         loading="{{ loading }}"
         loading-text="AI分析中..."
       >开始智能分析</van-button>
+      <view class="disclaimer">AI问答来源于Deepseek模型，仅供参考</view>
     </view>
   </view>
 

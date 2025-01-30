@@ -188,4 +188,13 @@
   font-size: 28rpx !important;
   line-height: 1.6 !important;
   white-space: pre-wrap !important;
+}
+
+/* 在现有样式的基础上添加 */
+.disclaimer {
+  font-size: 24rpx;
+  color: #999;
+  text-align: center;
+  margin-top: 16rpx;
+  padding: 0 32rpx;
 } 

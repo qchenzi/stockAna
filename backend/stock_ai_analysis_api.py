@@ -454,7 +454,7 @@ def get_technical_analysis(stock_code, date):
 
     except Exception as e:
         logger.error(f"获取技术分析失败: {str(e)}")
-        return f"分析失败: {str(e)}"
+        return f"DeepSeek AI模型繁忙/维护中..."
 
 @ai_analysis_bp.route('/analysis/<stock_code>', methods=['GET'])
 def get_ai_analysis(stock_code):
