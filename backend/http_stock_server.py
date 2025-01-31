@@ -10,6 +10,7 @@ from technical_api import technical_bp
 from stock_details_api import details_bp
 from stock_ai_analysis_api import ai_analysis_bp
 from stock_history_api import history_bp
+from stock_recommendation_api import recommendation_bp
 
 # 配置日志
 logging.basicConfig(level=logging.INFO)
@@ -18,11 +19,12 @@ logger = logging.getLogger(__name__)
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 
-# 注册技术分析蓝图
+# 注册所有蓝图
 app.register_blueprint(technical_bp, url_prefix='/api/technical')
-app.register_blueprint(details_bp, url_prefix='/api/stocks')  # 注册股票详情蓝图
+app.register_blueprint(details_bp, url_prefix='/api/stocks')
 app.register_blueprint(ai_analysis_bp, url_prefix='/api/ai')
 app.register_blueprint(history_bp, url_prefix='/api')
+app.register_blueprint(recommendation_bp, url_prefix='/api/technical')
 
 # 创建数据库连接
 engine = create_engine(

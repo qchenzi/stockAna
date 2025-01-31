@@ -1,6 +1,28 @@
 <view class="page">
-  <!-- 日期显示 -->
-  <van-cell title="推荐日期" value="{{ date }}" border="{{ false }}" />
+  <!-- 日期选择 -->
+  <van-cell 
+    title="推荐日期" 
+    value="{{ date }}" 
+    bind:click="onShowDatePicker"
+    is-link
+    border="{{ false }}" 
+  />
+  
+  <!-- 日期选择器弹窗 -->
+  <van-popup
+    show="{{ showDatePicker }}"
+    position="bottom"
+    bind:close="onCloseDatePicker"
+  >
+    <van-datetime-picker
+      type="date"
+      value="{{ currentDate }}"
+      min-date="{{ minDate }}"
+      max-date="{{ maxDate }}"
+      bind:confirm="onDateConfirm"
+      bind:cancel="onCloseDatePicker"
+    />
+  </van-popup>
 
   <!-- 推荐列表 -->
   <block wx:if="{{ recommendations.length > 0 }}">
