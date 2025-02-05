@@ -198,7 +198,7 @@ def get_three_bullish(stock_code):
                     FROM stock_historical_quotes b 
                     WHERE b.stock_code = a.stock_code
                         AND b.trade_date < a.trade_date
-                        AND b.trade_date >= DATE_SUB(a.trade_date, INTERVAL 7 DAY)
+                        AND b.trade_date >= DATE_SUB(a.trade_date, INTERVAL 30 DAY)
                 ) as prev_date1,
                 (
                     SELECT MAX(trade_date)
@@ -209,9 +209,9 @@ def get_three_bullish(stock_code):
                             FROM stock_historical_quotes c
                             WHERE c.stock_code = a.stock_code
                                 AND c.trade_date < a.trade_date
-                                AND c.trade_date >= DATE_SUB(a.trade_date, INTERVAL 7 DAY)
+                                AND c.trade_date >= DATE_SUB(a.trade_date, INTERVAL 30 DAY)
                         )
-                        AND b.trade_date >= DATE_SUB(a.trade_date, INTERVAL 7 DAY)
+                        AND b.trade_date >= DATE_SUB(a.trade_date, INTERVAL 30 DAY)
                 ) as prev_date2
             FROM stock_historical_quotes a
             WHERE a.stock_code = :code
@@ -343,7 +343,7 @@ def get_engulfing_pattern(stock_code):
             FROM stock_historical_quotes a
             LEFT JOIN stock_historical_quotes b ON a.stock_code = b.stock_code
                 AND b.trade_date < a.trade_date
-                AND b.trade_date >= DATE_SUB(a.trade_date, INTERVAL 7 DAY)
+                AND b.trade_date >= DATE_SUB(a.trade_date, INTERVAL 30 DAY)
             WHERE a.stock_code = :code
                 AND a.trade_date = :date
             GROUP BY a.stock_code, a.trade_date

@@ -13,8 +13,11 @@ Page({
   },
 
   onShowDatePicker() {
+    const currentDate = this.data.date ? new Date(this.data.date).getTime() : this.data.currentDate;
+    
     this.setData({ 
       showDatePicker: true,
+      currentDate: currentDate,
       maxDate: new Date().getTime(),
       minDate: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).getTime()
     });
@@ -40,45 +43,43 @@ Page({
   },
 
   loadScores(selectedDate = '') {
-    wx.showLoading({
-      title: '加载中...',
-    });
+    wx.showLoading({ title: '加载中...' });
 
     wx.request({
       url: `${getApp().globalData.baseUrl}/api/technical/scores`,
       method: 'GET',
       data: selectedDate ? { date: selectedDate } : {},
       success: (res) => {
-        console.log('API Response:', res.data);
-        if (res.data && res.data.scores) {
-          console.log('First score:', res.data.scores[0]);
-          if (!selectedDate) {
-            this.setData({
-              currentDate: new Date(res.data.date).getTime()
-            });
-          }
+        if (res.statusCode === 200 && res.data && res.data.scores) {
+          const latestDate = res.data.date;
           
           this.setData({
             scores: res.data.scores,
-            date: res.data.date
+            date: latestDate,
+            currentDate: new Date(latestDate).getTime()
           });
+        } else if (res.statusCode === 404) {
+          this.showError('所选日期无数据');
+          this.setData({ scores: [] });
         } else {
-          wx.showToast({
-            title: '加载失败',
-            icon: 'none'
-          });
+          this.showError('加载失败');
         }
       },
       fail: (err) => {
         console.error('加载评分失败:', err);
-        wx.showToast({
-          title: '加载失败',
-          icon: 'error'
-        });
+        this.showError('加载失败');
       },
       complete: () => {
         wx.hideLoading();
       }
+    });
+  },
+
+  showError(message) {
+    wx.showToast({
+      title: message,
+      icon: 'none',
+      duration: 2000
     });
   },
 
@@ -88,10 +89,7 @@ Page({
       url: `/pages/stock/detail/index?code=${stock.stock_code}`,
       fail: (err) => {
         console.error('跳转详情页面失败:', err);
-        wx.showToast({
-          title: '页面跳转失败',
-          icon: 'none'
-        });
+        this.showError('页面跳转失败');
       }
     });
   },
@@ -124,4 +122,4 @@ Page({
       default: return 'normal';
     }
   }
-}); 
+});
