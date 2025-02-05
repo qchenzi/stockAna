@@ -7,8 +7,8 @@
     />
     <van-grid-item 
       icon="fire-o"
-      text="每日推荐" 
-      bind:click="onRecommendationsClick"
+      text="神龙选股" 
+      bind:click="onTechnicalScoreClick"
     />
     <van-grid-item 
       icon="info-o" 
@@ -29,11 +29,6 @@
       icon="chat-o"
       text="AI分析" 
       bind:click="onAIAnalysisClick"
-    />
-    <van-grid-item 
-      icon="fire-o"
-      text="六彩神龙评分" 
-      bind:click="onTechnicalScoreClick"
     />
   </van-grid>
 </view> 
