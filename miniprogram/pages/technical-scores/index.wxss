@@ -1,0 +1,143 @@
+.page {
+  min-height: 100vh;
+  background: #f7f8fa;
+  padding: 32rpx 0;
+}
+
+.stock-card {
+  padding: 16rpx 0;
+}
+
+.stock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.stock-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.score-tag {
+  font-weight: bold !important;
+}
+
+.stock-subinfo {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+}
+
+.divider {
+  margin: 0 12rpx;
+  color: #ddd;
+}
+
+.stock-price {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  font-size: 36rpx;
+  color: #333;
+  font-weight: bold;
+  margin: 12rpx 0;
+}
+
+.change-ratio {
+  font-size: 28rpx;
+}
+
+.up {
+  color: #ff4d4f;
+}
+
+.down {
+  color: #52c41a;
+}
+
+.score-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 12rpx;
+}
+
+.analysis-table {
+  margin-top: 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.analysis-row {
+  display: flex;
+  gap: 12rpx;
+}
+
+.analysis-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8rpx 16rpx;
+  border-radius: 6rpx;
+  background: #f5f5f5;
+}
+
+/* 每个指标的背景色 */
+.analysis-cell.trend {
+  background: #e6f7ff;
+}
+
+.analysis-cell.momentum {
+  background: #fff7e6;
+}
+
+.analysis-cell.volume {
+  background: #f6ffed;
+}
+
+.analysis-cell.volatility {
+  background: #fff2f0;
+}
+
+.analysis-cell.bollinger {
+  background: #f9f0ff;
+}
+
+.analysis-cell .label {
+  font-size: 24rpx;
+  color: #666;
+  font-weight: 500;
+}
+
+.analysis-cell .value {
+  font-size: 24rpx;
+  font-weight: 500;
+  margin-left: 16rpx;
+}
+
+/* 状态样式 */
+.value.strong {
+  color: #ff4d4f;
+}
+
+.value.good {
+  color: #ff7a45;
+}
+
+.value.normal {
+  color: #666;
+}
+
+.value.weak {
+  color: #52c41a;
+}
+
+/* 移除旧的样式 */
+.analysis-grid, .analysis-item, .analysis-label, .analysis-value {
+  display: none;
+} 

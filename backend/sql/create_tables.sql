@@ -177,3 +177,31 @@ CREATE TABLE stock_recommendations (
     INDEX idx_stock (stock_code),
     CONSTRAINT UNIQUE KEY uk_date_stock (recommend_date, stock_code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='股票推荐记录表';
+
+-- 11. 股票技术评分表
+CREATE TABLE `stock_technical_scores` (
+    `id` bigint NOT NULL AUTO_INCREMENT,
+    `stock_code` varchar(6) NOT NULL COMMENT '股票代码',
+    `score_date` date NOT NULL COMMENT '评分日期',
+    `trend_score` int DEFAULT NULL COMMENT '趋势评分',
+    `momentum_score` int DEFAULT NULL COMMENT '动量评分',
+    `volatility_score` int DEFAULT NULL COMMENT '波动率评分',
+    `volume_score` int DEFAULT NULL COMMENT '成交量评分',
+    `bollinger_score` int DEFAULT NULL COMMENT '布林带评分',
+    `total_score` int DEFAULT NULL COMMENT '总评分',
+    `ma5` decimal(10,2) DEFAULT NULL COMMENT '5日均线',
+    `ma20` decimal(10,2) DEFAULT NULL COMMENT '20日均线',
+    `ma60` decimal(10,2) DEFAULT NULL COMMENT '60日均线',
+    `vol_ma5` decimal(20,2) DEFAULT NULL COMMENT '5日均量',
+    `vol_ma20` decimal(20,2) DEFAULT NULL COMMENT '20日均量',
+    `volatility` decimal(10,4) DEFAULT NULL COMMENT '波动率',
+    `boll_upper` decimal(10,2) DEFAULT NULL COMMENT '布林带上轨',
+    `boll_lower` decimal(10,2) DEFAULT NULL COMMENT '布林带下轨',
+    `macd` decimal(10,2) DEFAULT NULL COMMENT 'MACD值',
+    `macd_signal` decimal(10,2) DEFAULT NULL COMMENT 'MACD信号线',
+    `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uk_stock_date` (`stock_code`,`score_date`),
+    KEY `idx_date_score` (`score_date`,`total_score`),
+    KEY `idx_stock_date` (`stock_code`,`score_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='股票技术评分表';

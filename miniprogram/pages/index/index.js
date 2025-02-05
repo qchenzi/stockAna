@@ -59,5 +59,18 @@ Page({
     wx.navigateTo({
       url: '/pages/recommendations/index'
     });
+  },
+
+  onTechnicalScoreClick() {
+    wx.navigateTo({
+      url: '/pages/technical-scores/index',
+      fail: (err) => {
+        console.error('跳转六彩神龙页面失败:', err);
+        wx.showToast({
+          title: '页面跳转失败',
+          icon: 'none'
+        });
+      }
+    });
   }
 }); 

@@ -35,7 +35,6 @@
     "minifyWXSS": true,
     "ignoreUploadUnusedFiles": true
   },
-  "appid": "wx73a48186a4cb7e12",
   "cloudfunctionTemplateRoot": "cloudfunctionTemplate/",
   "condition": {
     "search": {
@@ -70,5 +69,6 @@
   "packOptions": {
     "ignore": [],
     "include": []
-  }
+  },
+  "appid": "wx73a48186a4cb7e12"
 }

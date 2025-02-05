@@ -1,0 +1,100 @@
+<view class="page">
+  <!-- 日期选择 -->
+  <van-cell 
+    title="评分日期" 
+    value="{{ date }}" 
+    bind:click="onShowDatePicker"
+    is-link
+    border="{{ false }}" 
+  />
+  
+  <!-- 日期选择器弹窗 -->
+  <van-popup
+    show="{{ showDatePicker }}"
+    position="bottom"
+    bind:close="onCloseDatePicker"
+  >
+    <van-datetime-picker
+      type="date"
+      value="{{ currentDate }}"
+      min-date="{{ minDate }}"
+      max-date="{{ maxDate }}"
+      bind:confirm="onDateConfirm"
+      bind:cancel="onCloseDatePicker"
+    />
+  </van-popup>
+
+  <!-- 评分列表 -->
+  <block wx:if="{{ scores.length > 0 }}">
+    <van-cell-group title="技术评分排行">
+      <van-cell
+        wx:for="{{ scores }}"
+        wx:key="stock_code"
+        is-link
+        bind:click="onStockClick"
+        data-stock="{{ item }}"
+      >
+        <view class="stock-card">
+          <!-- 第一行：股票名称和总分 -->
+          <view class="stock-header">
+            <view class="stock-name">{{ item.stock_name }}</view>
+            <van-tag type="primary" custom-class="score-tag">{{ item.total_score }}分</van-tag>
+          </view>
+          
+          <!-- 第二行：代码和行业 -->
+          <view class="stock-subinfo">
+            <text>{{ item.stock_code }}</text>
+            <text class="divider">|</text>
+            <text>{{ item.industry }}</text>
+          </view>
+          
+          <!-- 第三行：当前价格和涨跌幅 -->
+          <view class="stock-price">
+            <text>¥{{ item.current_price }}</text>
+            <text class="change-ratio {{ item.change_ratio >= 0 ? 'up' : 'down' }}">
+              {{ item.change_ratio >= 0 ? '+' : '' }}{{ item.change_ratio }}%
+            </text>
+          </view>
+          
+          <!-- 第四行：技术分析 -->
+          <view class="analysis-table">
+            <view class="analysis-row">
+              <view class="analysis-cell trend">
+                <text class="label">趋势</text>
+                <text class="value {{getTrendClass(item.trend_analysis.status)}}">{{item.trend_analysis.status}}</text>
+              </view>
+              <view class="analysis-cell momentum">
+                <text class="label">动量</text>
+                <text class="value {{item.momentum_analysis.status == 'MACD金叉' ? 'good' : 'weak'}}">{{item.momentum_analysis.status}}</text>
+              </view>
+            </view>
+            
+            <view class="analysis-row">
+              <view class="analysis-cell volume">
+                <text class="label">成交量</text>
+                <text class="value {{getVolumeClass(item.volume_analysis.status)}}">{{item.volume_analysis.status}}</text>
+              </view>
+              <view class="analysis-cell volatility">
+                <text class="label">波动率</text>
+                <text class="value {{getVolatilityClass(item.volatility_analysis.status)}}">{{item.volatility_analysis.status}}</text>
+              </view>
+            </view>
+            
+            <view class="analysis-row">
+              <view class="analysis-cell bollinger">
+                <text class="label">布林带</text>
+                <text class="value {{getBollingerClass(item.bollinger_analysis.status)}}">{{item.bollinger_analysis.status}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </van-cell>
+    </van-cell-group>
+  </block>
+
+  <!-- 空状态 -->
+  <van-empty 
+    wx:else 
+    description="暂无评分数据" 
+  />
+</view> 

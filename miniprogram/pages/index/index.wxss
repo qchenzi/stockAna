@@ -23,4 +23,31 @@
   font-size: 32rpx !important;
   margin-top: 16rpx !important;
   color: #333;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32rpx;
+  padding: 32rpx;
+}
+
+.grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border-radius: 16rpx;
+  padding: 32rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.05);
+}
+
+.icon-wrapper {
+  margin-bottom: 16rpx;
+}
+
+.grid-item text {
+  font-size: 28rpx;
+  color: #333;
 } 
