@@ -42,7 +42,7 @@
     />
     <van-grid-item 
       icon="chat-o"
-      text="AI分析" 
+      text="AI问答" 
       bind:click="onAIAnalysisClick"
     />
   </van-grid>

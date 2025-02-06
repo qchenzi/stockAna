@@ -177,7 +177,7 @@ Page({
       wx.navigateTo({
         url: `/pages/ai-analysis/index?code=${code}&date=${this.data.quoteDate}`,
         fail: (err) => {
-          console.error('跳转AI分析页面失败:', err);
+          console.error('跳转AI问答页面失败:', err);
           wx.showToast({
             title: '页面跳转失败',
             icon: 'none'

@@ -144,7 +144,7 @@ Page({
     }
 
     this.setData({ loading: true });
-    wx.showLoading({ title: 'AI分析中...' });
+    wx.showLoading({ title: '询问AI中...' });
     
     // 先获取最新交易日期
     wx.request({

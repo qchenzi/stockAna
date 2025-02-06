@@ -21,8 +21,8 @@
         custom-class="analyze-btn"
         bind:tap="onAnalyze"
         loading="{{ loading }}"
-        loading-text="AI分析中..."
-      >开始智能分析</van-button>
+        loading-text="询问AI中..."
+      >开始AI问答</van-button>
       <view class="disclaimer">AI问答来源于Deepseek模型，仅供参考</view>
     </view>
   </view>
@@ -43,7 +43,7 @@
 
   <!-- 分析结果 -->
   <view class="analysis-result" wx:if="{{ analysis }}">
-    <van-cell-group title="AI智能分析结果" custom-class="result-group">
+    <van-cell-group title="AI辅助问答结果" custom-class="result-group">
       <van-cell title="股票名称" value="{{ stockName }} ({{ stockCode }})" />
       <van-cell title="分析日期" value="{{ analysisDate }}" />
       <block wx:if="{{ parsedAnalysis }}">
@@ -61,7 +61,7 @@
   <!-- 空状态 -->
   <view class="empty" wx:if="{{ !analysis && !suggestions.length }}">
     <image src="/images/ai-empty.png" mode="aspectFit" class="empty-image"/>
-    <text class="empty-title">AI智能选股</text>
-    <text class="empty-desc">输入股票代码，获取AI分析建议</text>
+    <text class="empty-title">AI辅助问答</text>
+    <text class="empty-desc">输入股票代码，AI辅助问答</text>
   </view>
 </view> 
