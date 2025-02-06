@@ -9,7 +9,8 @@
     "pages/ai-analysis/index",
     "pages/watchlist/index",
     "pages/recommendations/index",
-    "pages/technical-scores/index"
+    "pages/technical-scores/index",
+    "pages/chip-analysis/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

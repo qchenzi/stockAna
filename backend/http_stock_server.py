@@ -12,6 +12,7 @@ from stock_ai_analysis_api import ai_analysis_bp
 from stock_history_api import history_bp
 from stock_recommendation_api import recommendation_bp
 from stock_technical_score_api import technical_score_bp
+from chip_analysis_api import chip_analysis_bp
 
 # 配置日志
 logging.basicConfig(level=logging.INFO)
@@ -27,6 +28,7 @@ app.register_blueprint(ai_analysis_bp, url_prefix='/api/ai')
 app.register_blueprint(history_bp, url_prefix='/api')
 app.register_blueprint(recommendation_bp, url_prefix='/api/technical')
 app.register_blueprint(technical_score_bp, url_prefix='/api/technical')
+app.register_blueprint(chip_analysis_bp)
 
 # 创建数据库连接
 engine = create_engine(

@@ -1,0 +1,105 @@
+<view class="page">
+  <!-- 日期选择 -->
+  <van-cell 
+    title="分析日期" 
+    value="{{ date }}" 
+    bind:click="onShowDatePicker"
+    is-link
+    border="{{ false }}" 
+  />
+  
+  <!-- 日期选择器弹窗 -->
+  <van-popup
+    show="{{ showDatePicker }}"
+    position="bottom"
+    bind:close="onCloseDatePicker"
+  >
+    <van-datetime-picker
+      type="date"
+      value="{{ currentDate }}"
+      min-date="{{ minDate }}"
+      max-date="{{ maxDate }}"
+      bind:confirm="onDateConfirm"
+      bind:cancel="onCloseDatePicker"
+    />
+  </van-popup>
+
+  <!-- 策略类型切换 -->
+  <van-tabs active="{{ activeTab }}" bind:change="onTabChange" sticky>
+    <van-tab 
+      wx:for="{{ tabs }}"
+      wx:for-item="tab"
+      wx:key="type"
+      name="{{ tab.type }}"
+      title="{{ tab.name }}"
+    >
+      <block wx:if="{{ stocks.length > 0 }}">
+        <van-cell-group title="筹码分布排行">
+          <van-cell
+            wx:for="{{ stocks }}"
+            wx:for-item="stock"
+            wx:key="stock_code"
+            is-link
+            bind:click="onStockClick"
+            data-stock="{{ stock }}"
+          >
+            <view class="stock-card">
+              <!-- 第一行：股票名称和排名 -->
+              <view class="stock-header">
+                <view>
+                  <text class="stock-name">{{ stock.stock_name }}</text>
+                </view>
+                <van-tag type="warning" custom-class="rank-tag">No.{{ stock.rank_num }}</van-tag>
+              </view>
+              
+              <!-- 第二行：代码和行业 -->
+              <view class="stock-subinfo">
+                <text>{{ stock.stock_code }}</text>
+                <text class="divider">|</text>
+                <text>{{ stock.industry }}</text>
+              </view>
+              
+              <!-- 价格信息 -->
+              <view class="stock-price">
+                ¥{{ stock.close_price }}
+                <text class="divider">|</text>
+                <text class="ma60">MA60: {{ stock.ma60 }}</text>
+                <text class="divider">|</text>
+                <text class="vwap">VWAP: {{ stock.vwap }}</text>
+              </view>
+              
+              <!-- 筹码分布 -->
+              <view class="analysis-table">
+                <view class="analysis-row">
+                  <view class="analysis-cell main">
+                    <text class="label">主力筹码</text>
+                    <text class="value {{ stock.main_chip_ratio > 0.4 ? 'strong' : 'normal' }}">{{ stock.main_chip_ratio_display }}%</text>
+                  </view>
+                  <view class="analysis-cell profit">
+                    <text class="label">获利筹码</text>
+                    <text class="value {{ stock.profit_chip_ratio > 0.6 ? 'strong' : 'normal' }}">{{ stock.profit_chip_ratio_display }}%</text>
+                  </view>
+                </view>
+                <view class="analysis-row">
+                  <view class="analysis-cell locked">
+                    <text class="label">套牢筹码</text>
+                    <text class="value {{ stock.locked_chip_ratio > 0.6 ? 'weak' : 'normal' }}">{{ stock.locked_chip_ratio_display }}%</text>
+                  </view>
+                  <view class="analysis-cell float">
+                    <text class="label">浮动筹码</text>
+                    <text class="value {{ stock.floating_chip_ratio > 0.3 ? 'weak' : 'normal' }}">{{ stock.floating_chip_ratio_display }}%</text>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </van-cell>
+        </van-cell-group>
+      </block>
+
+      <van-empty 
+        wx:else 
+        description="暂无数据" 
+      />
+    </van-tab>
+  </van-tabs>
+</view> 

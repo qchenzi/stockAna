@@ -1,0 +1,113 @@
+.page {
+  min-height: 100vh;
+  background: #f7f8fa;
+  padding: 32rpx 0;
+}
+
+.stock-card {
+  padding: 16rpx 0;
+}
+
+.stock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+
+.stock-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.stock-subinfo {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 12rpx;
+}
+
+.rank-tag {
+  font-weight: bold !important;
+}
+
+.stock-price {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  font-size: 36rpx;
+  color: #333;
+  font-weight: bold;
+  margin: 16rpx 0;
+}
+
+.divider {
+  margin: 0 12rpx;
+  color: #ddd;
+}
+
+.ma60, .vwap {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.analysis-table {
+  margin-top: 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.analysis-row {
+  display: flex;
+  gap: 12rpx;
+}
+
+.analysis-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8rpx 12rpx;
+  background: #f5f5f5;
+  border-radius: 8rpx;
+}
+
+.analysis-cell .label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.analysis-cell .value {
+  font-size: 28rpx;
+  font-weight: 500;
+  margin-left: 16rpx;
+}
+
+.analysis-cell.main {
+  background: #e6f7ff;
+}
+
+.analysis-cell.profit {
+  background: #fff7e6;
+}
+
+.analysis-cell.locked {
+  background: #f6ffed;
+}
+
+.analysis-cell.float {
+  background: #fff2f0;
+}
+
+.value.strong {
+  color: #ff4d4f;
+}
+
+.value.normal {
+  color: #666;
+}
+
+.value.weak {
+  color: #52c41a;
+} 

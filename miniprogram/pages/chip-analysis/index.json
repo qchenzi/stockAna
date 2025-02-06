@@ -1,10 +1,11 @@
 {
-  "navigationBarTitleText": "每日推荐",
+  "navigationBarTitleText": "筹码选股",
   "usingComponents": {
     "van-cell": "@vant/weapp/cell/index",
     "van-cell-group": "@vant/weapp/cell-group/index",
     "van-tag": "@vant/weapp/tag/index",
-    "van-icon": "@vant/weapp/icon/index",
+    "van-tab": "@vant/weapp/tab/index", 
+    "van-tabs": "@vant/weapp/tabs/index",
     "van-empty": "@vant/weapp/empty/index",
     "van-datetime-picker": "@vant/weapp/datetime-picker/index",
     "van-popup": "@vant/weapp/popup/index"

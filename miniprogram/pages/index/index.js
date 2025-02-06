@@ -65,7 +65,20 @@ Page({
     wx.navigateTo({
       url: '/pages/technical-scores/index',
       fail: (err) => {
-        console.error('跳转六彩神龙页面失败:', err);
+        console.error('跳转每日推荐页面失败:', err);
+        wx.showToast({
+          title: '页面跳转失败',
+          icon: 'none'
+        });
+      }
+    });
+  },
+
+  onChipAnalysisClick() {
+    wx.navigateTo({
+      url: '/pages/chip-analysis/index',
+      fail: (err) => {
+        console.error('跳转筹码分析页面失败:', err);
         wx.showToast({
           title: '页面跳转失败',
           icon: 'none'

@@ -7,13 +7,18 @@
     />
     <van-grid-item 
       icon="fire-o"
-      text="神龙选股" 
+      text="每日推荐" 
       bind:click="onTechnicalScoreClick"
     />
     <van-grid-item 
       icon="info-o" 
       text="个股详情" 
       bind:click="onStockInfoClick"
+    />
+    <van-grid-item 
+      icon="bar-chart-o"
+      text="筹码选股" 
+      bind:click="onChipAnalysisClick"
     />
     <van-grid-item 
       icon="chart-trending-o" 
