@@ -156,7 +156,7 @@ gunicorn -w 4 -b 0.0.0.0:5000 backend.http_stock_server:app
 
 #### 3. 股票列表
 <img src="docs/favorite_list.PNG" width="250"/>
-支持多种筛选和排序的股票列表，帮助用户快速找到感兴趣的标的。
+支持多种筛选和排序的股票列表，帮助用户快速找到感兴趣的股票。
 
 #### 4. k线分析
 <img src="docs/kline_analysis.PNG" width="250"/>
@@ -331,17 +331,3 @@ python scripts/stock_technical_scorer.py
 ## 许可证
 
 本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
-
-## 联系方式
-
-- 作者：[Your Name]
-- 邮箱：[your.email@example.com]
-- 项目地址：[https://github.com/qchenzi/stockAna](https://github.com/qchenzi/stockAna)
-
-## 致谢
-
-- [Flask](https://flask.palletsprojects.com/)
-- [SQLAlchemy](https://www.sqlalchemy.org/)
-- [pandas](https://pandas.pydata.org/)
-- [TuShare](https://tushare.pro/)
-- [DeepSeek](https://deepseek.com/)
