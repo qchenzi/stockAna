@@ -1,8 +1,10 @@
 from flask import Blueprint, request, jsonify
 from sqlalchemy import text, create_engine
+from config.config import AI_API_KEY, AI_API_URL
 from config.database import DB_CONFIG_READER
 import logging
-from openai import OpenAI
+import requests
+from tenacity import retry, stop_after_attempt, wait_exponential
 
 # 创建蓝图
 ai_analysis_bp = Blueprint('ai_analysis', __name__)
@@ -15,6 +17,53 @@ engine = create_engine(
     f"mysql+pymysql://{DB_CONFIG_READER['user']}:{DB_CONFIG_READER['password']}"
     f"@{DB_CONFIG_READER['host']}/{DB_CONFIG_READER['database']}?charset=utf8mb4"
 )
+
+class AIAnalyzer:
+    def __init__(self):
+        self.api_key = AI_API_KEY
+        self.url = AI_API_URL
+        self.headers = {
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {self.api_key}"
+        }
+        # 创建一个不使用代理的 session
+        self.session = requests.Session()
+        self.session.trust_env = False  # 不使用系统环境变量中的代理设置
+
+    @retry(
+        stop=stop_after_attempt(3),  # 最多重试3次
+        wait=wait_exponential(multiplier=2, min=4, max=60),  # 指数退避，等待时间更长
+        reraise=True
+    )
+    def get_analysis(self, messages):
+        """带重试机制的AI分析调用"""
+        try:
+            data = {
+                "model": "deepseek-chat",
+                "messages": messages,
+                "stream": False
+            }
+            
+            # 使用更长的超时时间
+            response = self.session.post(
+                self.url, 
+                headers=self.headers, 
+                json=data,
+                timeout=(30, 120)  # (连接超时, 读取超时)
+            )
+            
+            if response.status_code == 200:
+                return response.json()['choices'][0]['message']['content']
+            else:
+                logger.error(f"API调用失败: {response.status_code} - {response.text}")
+                raise Exception(f"API调用失败: {response.status_code}")
+                
+        except requests.Timeout as e:
+            logger.error(f"请求超时: {str(e)}")
+            raise
+        except Exception as e:
+            logger.error(f"AI分析调用失败: {str(e)}")
+            raise
 
 def get_technical_analysis(stock_code, date):
     """获取技术分析结果"""
@@ -431,30 +480,32 @@ def get_technical_analysis(stock_code, date):
         """
 
         # 3. 调用AI接口
-        client = OpenAI(api_key="sk-dd0045a3e636484eaedb778c51b6bc6f", base_url="https://api.deepseek.com")
-        response = client.chat.completions.create(
-            model="deepseek-chat",
-            messages=[
-                {
-                    "role": "system",
-                    "content": (
-                        "你是一位金融分析助手，精通股票市场趋势、基本面分析、技术分析和风险评估。"
-                        "我会给你中国A股股票的分析数据，股票价格都是人民币，同时你的回答应该使用中文，并提供清晰且专业的建议。"
-                    )
-                },
-                {
-                    "role": "user",
-                    "content": analysis_prompt
-                }
-            ],
-            stream=False
-        )
-
-        return response.choices[0].message.content
+        analyzer = AIAnalyzer()
+        messages = [
+            {
+                "role": "system",
+                "content": (
+                    "你是一位金融分析助手，精通股票市场趋势、基本面分析、技术分析和风险评估。"
+                    "我会给你中国A股股票的分析数据，股票价格都是人民币，同时你的回答应该使用中文，并提供清晰且专业的建议。"
+                )
+            },
+            {
+                "role": "user",
+                "content": analysis_prompt
+            }
+        ]
+        
+        try:
+            analysis_result = analyzer.get_analysis(messages)
+            logger.info(f"分析完成: {stock_code}")
+            return analysis_result
+        except Exception as e:
+            logger.error(f"AI分析最终失败: {str(e)}")
+            return f"很抱歉，AI分析服务暂时不可用，请稍后再试。"
 
     except Exception as e:
         logger.error(f"获取技术分析失败: {str(e)}")
-        return f"DeepSeek AI模型繁忙/维护中..."
+        return str(e)
 
 @ai_analysis_bp.route('/analysis/<stock_code>', methods=['GET'])
 def get_ai_analysis(stock_code):
@@ -486,5 +537,5 @@ def get_ai_analysis(stock_code):
         return jsonify(response_data)
         
     except Exception as e:
-        logger.error(f"获取AI分析失败: {str(e)}")
+        logger.error(f"获取AI回答失败: {str(e)}")
         return jsonify({'error': str(e)}), 500 

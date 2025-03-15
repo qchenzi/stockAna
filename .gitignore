@@ -12,3 +12,12 @@ $RECYCLE.BIN/
 
 # Node.js
 node_modules/
+
+backend_docs/
+local_config/
+
+miniprogram/app.js
+
+/backend/config/*.py
+/backend/config/config.py
+/backend/config/database.py

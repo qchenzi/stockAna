@@ -36,11 +36,6 @@
       bind:click="onTechnicalClick"
     />
     <van-grid-item 
-      icon="search" 
-      text="策略选股" 
-      bind:click="onStrategyClick"
-    />
-    <van-grid-item 
       icon="chat-o"
       text="AI问答" 
       bind:click="onAIAnalysisClick"

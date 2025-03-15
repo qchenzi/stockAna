@@ -91,13 +91,13 @@ def analyze_stock_info(full_history=False):
     start_time = datetime.now()
     
     # 检查原始数据目录
-    stock_info_dir = 'stock_info'
+    stock_info_dir = 'stock_fundamental/stock_info'
     if not os.path.exists(stock_info_dir):
         logger.error("未找到 stock_info 目录，请先运行 sh_stock_downloader.py")
         return
     
     # 创建分析结果目录
-    analysis_dir = 'stock_analysis'
+    analysis_dir = 'stock_fundamental/stock_analysis'
     if not os.path.exists(analysis_dir):
         os.makedirs(analysis_dir)
     

@@ -244,7 +244,7 @@ def import_analyzed_data(date_str=None, full_history=False, max_workers=10):
     
     # 1. 先处理股票基本信息
     logger.info("开始导入股票基本信息...")
-    for file_path in glob.glob('stock_info/**/*_info.json', recursive=True):
+    for file_path in glob.glob('stock_fundamental/stock_info/**/*_info.json', recursive=True):
         with open(file_path, 'r', encoding='utf-8') as f:
             data = json.load(f)
             stock_code = data.get('stock_code')
@@ -253,7 +253,7 @@ def import_analyzed_data(date_str=None, full_history=False, max_workers=10):
                 insert_stock_basic_info(engine, data, stock_code, stock_name)
     
     # 2. 再处理指标数据
-    analysis_dir = 'stock_analysis'
+    analysis_dir = 'stock_fundamental/stock_analysis'
     if not os.path.exists(analysis_dir):
         logger.error("未找到分析结果目录")
         return

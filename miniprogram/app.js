@@ -6,7 +6,7 @@ App({
     
     this.globalData = {
       userInfo: null,
-      baseUrl: 'https://tech-chen.site'
+      baseUrl: 'http://backend_server_ip:5000' // backend服务地址
     };
   }
 });

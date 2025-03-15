@@ -1,0 +1,23 @@
+# Web Framework
+Flask==2.3.3
+gunicorn==21.2.0
+
+# Database
+SQLAlchemy==2.0.25
+PyMySQL==1.1.0
+cryptography==41.0.7  # MySQL 8+ 认证需要
+
+# Data Processing & Analysis
+pandas==2.1.4
+numpy==1.24.3
+akshare==1.12.15
+yfinance==0.2.35
+tqdm==4.66.1 
+
+# HTTP & Network
+requests==2.31.0
+tenacity==8.2.3
+
+# Utils
+python-dotenv==1.0.0
+argparse==1.4.0
