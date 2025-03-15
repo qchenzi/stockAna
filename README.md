@@ -5,7 +5,7 @@
 [![MySQL](https://img.shields.io/badge/MySQL-8.0%2B-orange)](https://www.mysql.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-一个功能强大的A股分析平台，集成了多种投资策略、技术分析和 AI 辅助决策功能。支持实时数据分析、多维度技术指标计算、智能选股和投资建议等功能。
+一个功能强大的A股分析平台，集成了多种投资策略、技术分析和 AI 辅助决策功能。支持T+1数据分析、多维度技术指标计算、智能选股和投资建议等功能。
 
 ## 功能特点
 
