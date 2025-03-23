@@ -1,8 +1,12 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from config.database import DB_CONFIG
+
 import logging
 from datetime import datetime
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
-from config.database import DB_CONFIG
 import os
 import json
 import argparse

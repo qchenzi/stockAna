@@ -1,5 +1,9 @@
-from sqlalchemy import create_engine, text
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config.database import DB_CONFIG_ADMIN
+
+from sqlalchemy import create_engine, text
 import logging
 from datetime import datetime
 

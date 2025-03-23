@@ -48,9 +48,9 @@ def download_stock_info(args):
         stock = yf.Ticker(full_code, session=session)
         
         # 添加延时，避免请求过于频繁
-        time.sleep(random.uniform(2, 5))
+        time.sleep(random.uniform(0, 1))
         
-        max_retries = 2
+        max_retries = 1
         for attempt in range(max_retries):
             try:
                 # 尝试不同的方法获取数据
@@ -75,7 +75,7 @@ def download_stock_info(args):
                 
             except Exception as e:
                 if attempt < max_retries - 1:
-                    delay = 2
+                    delay = 0.5
                     logger.warning(f"获取 {stock_name}({stock_code}) 失败: {str(e)}, "
                                  f"第 {attempt + 1}/{max_retries} 次重试，等待 {delay} 秒")
                     time.sleep(delay)
@@ -186,7 +186,7 @@ def download_sh_stocks_info(max_workers=5):
                 logger.info(message)
                 
                 # 添加小延时避免请求过于频繁
-                time.sleep(0.5)
+                # time.sleep(0.2)
 
         logger.info(f"\n下载完成! 成功: {success_count}/{len(download_tasks)}")
         if failed_stocks:

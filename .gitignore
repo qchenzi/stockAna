@@ -21,3 +21,7 @@ miniprogram/app.js
 /backend/config/*.py
 /backend/config/config.py
 /backend/config/database.py
+
+backend/stock_fundamental/*
+backend/stock_history/*
+backend/config/config.py
